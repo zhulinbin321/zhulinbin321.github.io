@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title>人生进度条</title>
+<meta name="description" content="一年只有 52 个周。输入生日，看看你人生的格子还剩多少。">
+<meta property="og:title" content="人生进度条">
+<meta property="og:description" content="一年只有 52 个周。这是你剩下的所有周末。">
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<style>
+  /* ============ 主题变量 ============ */
+  :root {
+    color-scheme: light;
+    --bg: #ffffff; --bg-soft: #f6f7fa;
+    --text: #14161a; --text-soft: #525b69; --text-muted: #8a94a3;
+    --border: #e7eaf0;
+    --accent: #4f46e5; --accent-hover: #4338ca; --accent-a10: rgba(79,70,229,.12);
+    --cell-past: #3a3f4b; --cell-future: #e8eaf1;
+    --shadow-md: 0 4px 14px rgba(16,24,40,.06);
+    --radius: 14px;
+    --ease: cubic-bezier(.4,0,.2,1);
+  }
+  [data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #0d1017; --bg-soft: #141922;
+    --text: #eef1f6; --text-soft: #a3adbd; --text-muted: #6f7a8b;
+    --border: #242c3a;
+    --accent: #7c83f7; --accent-hover: #9298fa; --accent-a10: rgba(124,131,247,.18);
+    --cell-past: #9aa3b5; --cell-future: #1e2531;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.7; min-height: 100%;
+    -webkit-tap-highlight-color: transparent;
+    transition: background .3s var(--ease), color .3s var(--ease);
+  }
+  .wrap {
+    max-width: 720px; margin: 0 auto;
+    padding: 20px 18px;
+    padding-bottom: calc(56px + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* ============ 顶栏 ============ */
+  .topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+  .logo {
+    font-weight: 700; font-size: 15px; color: var(--text); text-decoration: none;
+    display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center;
+  }
+  .logo svg { width: 18px; height: 18px; color: var(--accent); margin-right: 7px; }
+  .theme-btn {
+    background: var(--bg-soft); border: 1px solid var(--border); color: var(--text-soft);
+    width: 38px; height: 38px; border-radius: 50%; cursor: pointer;
+    display: -webkit-flex; display: flex; -webkit-justify-content: center; justify-content: center;
+    -webkit-align-items: center; align-items: center;
+  }
+  .theme-btn:active { opacity: .6; }
+  .theme-btn svg { width: 17px; height: 17px; }
+  html[data-theme="dark"] .icon-sun { display: none; }
+  html:not([data-theme="dark"]) .icon-moon { display: none; }
+
+  /* ============ Hero ============ */
+  .hero { text-align: center; margin-bottom: 32px; }
+  .hero h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }
+  .hero .sub { color: var(--text-muted); font-size: 15px; margin-top: 8px; }
+
+  /* ============ 输入卡 ============ */
+  .card {
+    background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 22px 18px;
+    box-shadow: var(--shadow-md);
+  }
+  .field { margin-bottom: 16px; }
+  .field:last-of-type { margin-bottom: 0; }
+  .field label { display: block; font-size: 13px; color: var(--text-muted); margin-bottom: 7px; }
+  .field input[type="date"] {
+    font-family: inherit; font-size: 16px; /* 16px 防止 iOS/QQ 聚焦强制放大 */
+    color: var(--text); background: var(--bg);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 14px; outline: none; width: 100%;
+    -webkit-appearance: none; appearance: none;
+    min-height: 46px;
+  }
+  .field input[type="date"]:focus { border-color: var(--accent); }
+  .range-line { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; }
+  .range-line input[type="range"] {
+    -webkit-flex: 1; flex: 1; accent-color: var(--accent); margin-right: 12px; min-height: 36px;
+  }
+  .range-line output {
+    font-size: 16px; font-weight: 600; color: var(--text);
+    min-width: 58px; text-align: right;
+  }
+  .go-btn {
+    font-family: inherit; font-size: 17px; font-weight: 600;
+    background: var(--accent); color: #fff; border: none; border-radius: 12px;
+    padding: 14px 0; width: 100%; cursor: pointer; margin-top: 18px;
+  }
+  .go-btn:active { opacity: .82; }
+  .err { color: #d94f43; font-size: 13px; text-align: center; margin-top: 10px; min-height: 18px; }
+
+  /* ============ 结果区 ============ */
+  #result { display: none; }
+  .bigbar-wrap { margin-bottom: 32px; text-align: center; }
+  .bigbar-label { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; }
+  .bigbar-label strong { color: var(--text); font-size: 40px; font-weight: 800; letter-spacing: -1px; }
+  .bigbar-label strong em { font-style: normal; font-size: 20px; }
+  .bigbar { height: 14px; background: var(--cell-future); border-radius: 7px; overflow: hidden; }
+  .bigbar .fill {
+    height: 100%; background: var(--accent); border-radius: 7px; width: 0;
+    transition: width 1.4s var(--ease);
+  }
+  .bigbar-caption { font-size: 13px; color: var(--text-muted); margin-top: 8px; }
+
+  /* ============ 周格子图 ============ */
+  .grid-sec { margin-bottom: 30px; }
+  .grid-title { margin-bottom: 12px; }
+  .grid-title h2 { font-size: 17px; font-weight: 700; display: inline; }
+  .legend { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+  .legend i {
+    display: inline-block; width: 9px; height: 9px; border-radius: 2px;
+    vertical-align: -1px; margin: 0 4px 0 10px;
+  }
+  .legend i:first-child { margin-left: 0; }
+  .legend .l-past i { background: var(--cell-past); }
+  .legend .l-now i { background: var(--accent); }
+  .legend .l-future i { background: var(--cell-future); border: 1px solid var(--border); }
+  .weeks {
+    display: grid; grid-template-columns: repeat(52, 1fr);
+    grid-auto-rows: 7px; gap: 2px;
+    -webkit-user-select: none; user-select: none;
+    -webkit-touch-callout: none;
+  }
+  .weeks .cell { border-radius: 2px; background: var(--cell-future); }
+  .weeks .past { background: var(--cell-past); }
+  .weeks .now { background: var(--accent); position: relative; }
+  .weeks .now::after {
+    content: ''; position: absolute; left: -2px; top: -2px; right: -2px; bottom: -2px;
+    border-radius: 4px; border: 1.5px solid var(--accent); opacity: .5;
+  }
+  .week-tip { font-size: 13px; color: var(--text-soft); text-align: center; margin-top: 12px; min-height: 20px; }
+  .grid-note { font-size: 14px; color: var(--text-muted); text-align: center; margin-top: 6px; }
+
+  /* ============ 数据卡 ============ */
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 30px; }
+  .stat {
+    background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 18px 12px; text-align: center;
+  }
+  .stat .num { font-size: 26px; font-weight: 800; letter-spacing: -0.5px; }
+  .stat .num small { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-left: 2px; }
+  .stat .desc { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+  .stat.hi .num { color: var(--accent); }
+  .bar-row { margin-top: 10px; }
+  .bar { height: 8px; background: var(--cell-future); border-radius: 4px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--accent); border-radius: 4px; }
+  .bar .cap { font-size: 12px; color: var(--text-muted); margin-top: 6px; text-align: left; }
+
+  /* ============ 操作 ============ */
+  .actions { display: -webkit-flex; display: flex; -webkit-justify-content: center; justify-content: center; -webkit-flex-wrap: wrap; flex-wrap: wrap; margin-bottom: 36px; }
+  .ghost-btn {
+    font-family: inherit; font-size: 14px; font-weight: 600;
+    background: transparent; color: var(--text-soft);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 11px 20px; cursor: pointer;
+  }
+  .ghost-btn:first-child { margin-right: 12px; margin-bottom: 12px; }
+  .ghost-btn:active { color: var(--accent); border-color: var(--accent); }
+
+  /* ============ 复制弹层（QQ 内置浏览器剪贴板受限时兜底） ============ */
+  .mask {
+    display: none; position: fixed; left: 0; top: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,.45); z-index: 50;
+    -webkit-align-items: center; align-items: center; -webkit-justify-content: center; justify-content: center;
+    padding: 24px;
+  }
+  .mask.show { display: -webkit-flex; display: flex; }
+  .modal {
+    background: var(--bg); border-radius: 16px; padding: 22px 18px;
+    max-width: 420px; width: 100%;
+  }
+  .modal h3 { font-size: 16px; margin-bottom: 10px; }
+  .modal p.sharetip { font-size: 13px; color: var(--text-muted); margin-bottom: 10px; }
+  .modal textarea {
+    width: 100%; font-family: inherit; font-size: 15px; color: var(--text);
+    background: var(--bg-soft); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px; resize: none; outline: none; min-height: 130px; line-height: 1.6;
+  }
+  .modal .modal-btns { display: -webkit-flex; display: flex; margin-top: 14px; }
+  .modal .modal-btns button { -webkit-flex: 1; flex: 1; }
+
+  /* ============ 页脚 ============ */
+  .foot { text-align: center; color: var(--text-muted); font-size: 13px; }
+  .foot a { color: var(--text-soft); text-decoration: none; border-bottom: 1px dashed var(--text-muted); }
+  .foot a:active { color: var(--accent); }
+  .foot .privacy { margin-top: 6px; font-size: 12px; }
+
+  /* Toast */
+  .toast {
+    position: fixed; left: 50%; bottom: -60px; transform: translateX(-50%);
+    background: rgba(20,22,26,.9); color: #fff; font-size: 14px;
+    padding: 10px 20px; border-radius: 20px; z-index: 60;
+    transition: bottom .3s var(--ease); white-space: nowrap;
+  }
+  .toast.show { bottom: calc(40px + env(safe-area-inset-bottom, 0px)); }
+
+  /* ============ 桌面增强 ============ */
+  @media (min-width: 600px) {
+    .wrap { padding-top: 32px; }
+    .hero h1 { font-size: 40px; }
+    .setup .row { display: -webkit-flex; display: flex; -webkit-flex-wrap: wrap; flex-wrap: wrap; -webkit-align-items: flex-end; align-items: flex-end; }
+    .setup .field { -webkit-flex: 1; flex: 1; min-width: 220px; margin-bottom: 0; }
+    .setup .field + .field { margin-left: 18px; }
+    .setup .go-btn { width: auto; padding: 14px 40px; margin-top: 0; margin-left: 18px; }
+    .stats { gap: 14px; }
+    .stat .num { font-size: 30px; }
+    .weeks { grid-auto-rows: 9px; gap: 2.5px; }
+    .weeks .cell:hover { outline: 1.5px solid var(--accent); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bigbar .fill { transition: none; }
+    .toast { transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <a class="logo" href="../">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      人生进度条
+    </a>
+    <button class="theme-btn" id="themeBtn" aria-label="切换深浅色">
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
+
+  <div class="hero">
+    <h1>人生进度条</h1>
+    <p class="sub">一年只有 52 个周。输入生日，看看你的格子还剩多少。</p>
+  </div>
+
+  <div class="card setup" id="setup">
+    <div class="row">
+      <div class="field">
+        <label for="birth">你的生日</label>
+        <input type="date" id="birth" required>
+      </div>
+      <div class="field">
+        <label for="life">打算活到</label>
+        <div class="range-line">
+          <input type="range" id="life" min="60" max="100" step="1" value="75">
+          <output id="lifeOut">75 岁</output>
+        </div>
+      </div>
+      <button class="go-btn" id="goBtn">看看</button>
+    </div>
+    <div class="err" id="err"></div>
+  </div>
+
+  <div id="result">
+    <div class="bigbar-wrap">
+      <div class="bigbar-label" id="bigLabel"></div>
+      <div class="bigbar"><div class="fill" id="bigFill"></div></div>
+      <div class="bigbar-caption" id="bigCaption"></div>
+    </div>
+
+    <div class="grid-sec">
+      <div class="grid-title">
+        <h2>你的人生，以周计</h2>
+        <div class="legend">
+          <span class="l-past"><i></i>已经花掉</span><span class="l-now"><i></i>这一周</span><span class="l-future"><i></i>还剩</span>
+        </div>
+      </div>
+      <div class="weeks" id="weeks"></div>
+      <div class="week-tip" id="weekTip">点一下格子，看看那是你几岁</div>
+      <p class="grid-note" id="gridNote"></p>
+    </div>
+
+    <div class="stats" id="stats"></div>
+
+    <div class="card" style="margin-bottom: 30px;">
+      <div class="stats" id="today" style="margin-bottom:0;"></div>
+    </div>
+
+    <div class="actions">
+      <button class="ghost-btn" id="copyBtn">复制发给别人</button>
+      <button class="ghost-btn" id="resetBtn">换个人生</button>
+    </div>
+  </div>
+
+  <div class="foot">
+    出品：<a href="../">朱麟滨</a> · 托管在 GitHub Pages，没花一分钱服务器钱<br>
+    <span class="privacy">你的生日只存在你自己的浏览器里，这个页面没有服务器，谁也拿不走。</span>
+  </div>
+</div>
+
+<!-- 复制兜底弹层 -->
+<div class="mask" id="mask">
+  <div class="modal">
+    <h3>发给朋友</h3>
+    <p class="sharetip" id="shareTip">已自动复制。如果没有，长按下面的文字手动复制：</p>
+    <textarea id="shareText" readonly></textarea>
+    <div class="modal-btns">
+      <button class="ghost-btn" id="modalClose" style="margin-right:10px;">关闭</button>
+      <button class="ghost-btn" id="modalCopy" style="margin:0;">复制</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  function $(id) { return document.getElementById(id); }
+  function fmt(n) { return n.toLocaleString('zh-CN'); }
+  var DAY = 86400000, WEEK = 7 * DAY;
+
+  /* ---------- 主题（跟随系统 + 手动切换，localStorage 记住） ---------- */
+  var root = document.documentElement;
+  var savedTheme = null;
+  try { savedTheme = localStorage.getItem('life-theme'); } catch (e) {}
+  if (savedTheme === 'dark' || savedTheme === 'light') {
+    root.setAttribute('data-theme', savedTheme);
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    root.setAttribute('data-theme', 'dark');
+  }
+  $('themeBtn').addEventListener('click', function () {
+    var cur = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', cur);
+    try { localStorage.setItem('life-theme', cur); } catch (e) {}
+  });
+
+  /* ---------- Toast ---------- */
+  var toastTimer = null;
+  function toast(msg) {
+    var t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2200);
+  }
+
+  /* ---------- 输入 ---------- */
+  var birthInput = $('birth'), lifeInput = $('life'), lifeOut = $('lifeOut'), errBox = $('err');
+  var G = null, tickTimer = null;
+
+  lifeInput.addEventListener('input', function () {
+    lifeOut.textContent = lifeInput.value + ' 岁';
+  });
+
+  // 记住上次输入，回访免重填
+  try {
+    var lastBirth = localStorage.getItem('life-birth');
+    var lastAge = localStorage.getItem('life-age');
+    if (lastBirth) birthInput.value = lastBirth;
+    if (lastAge) { lifeInput.value = lastAge; lifeOut.textContent = lastAge + ' 岁'; }
+  } catch (e) {}
+
+  $('goBtn').addEventListener('click', run);
+  birthInput.addEventListener('change', function () { if (birthInput.value) run(); });
+  lifeInput.addEventListener('change', function () { if (birthInput.value) run(); });
+
+  function run() {
+    errBox.textContent = '';
+    var v = birthInput.value;
+    if (!v) { errBox.textContent = '先选个生日'; return; }
+    var birth = new Date(v + 'T00:00:00');
+    var now = new Date();
+    if (isNaN(birth.getTime())) { errBox.textContent = '这个日期我看不懂'; return; }
+    if (birth > now) { errBox.textContent = '你还没出生，先别算'; return; }
+
+    var lifespan = parseInt(lifeInput.value, 10) || 75;
+    try { localStorage.setItem('life-birth', v); localStorage.setItem('life-age', String(lifespan)); } catch (e) {}
+
+    var totalWeeks = Math.floor(lifespan * 365.25 / 7);
+    var livedDays = Math.floor((now - birth) / DAY);
+    var livedWeeks = Math.floor(livedDays / 7);
+    var over = livedWeeks >= totalWeeks;
+    var pct = Math.min(100, livedDays / (lifespan * 365.25) * 100);
+    var ageYears = Math.floor((now - birth) / (365.25 * DAY));
+    var weeksLeft = Math.max(0, totalWeeks - livedWeeks);
+
+    G = { birth: birth, now: now, lifespan: lifespan, totalWeeks: totalWeeks,
+          livedWeeks: livedWeeks, livedDays: livedDays, weeksLeft: weeksLeft,
+          ageYears: ageYears, over: over };
+
+    // 滚动到结果
+    $('setup').style.display = 'none';
+    $('result').style.display = 'block';
+    render();
+    try { window.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { window.scrollTo(0, 0); }
+  }
+
+  function render() {
+    var g = G;
+    var pctNum = g.livedDays / (g.lifespan * 365.25) * 100;
+
+    /* 大进度条 */
+    $('bigLabel').innerHTML = '人生已经过去了 <strong>' + Math.min(100, pctNum).toFixed(1) + '<em>%</em></strong>';
+    $('bigFill').style.width = '0%';
+    setTimeout(function () { $('bigFill').style.width = Math.min(100, pctNum) + '%'; }, 60);
+    $('bigCaption').textContent = g.over
+      ? '你已经活过 ' + g.lifespan + ' 岁的预算了。剩下的每一天都是白赚的。'
+      : '按活到 ' + g.lifespan + ' 岁算，' + fmt(g.livedDays) + ' 天已经花掉了。';
+
+    /* 周格子图 */
+    var grid = $('weeks');
+    grid.innerHTML = '';
+    var total = g.lifespan * 52;
+    var nowIdx = Math.min(g.livedWeeks, total - 1);
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < total; i++) {
+      var d = document.createElement('div');
+      d.className = 'cell' + (i <= g.livedWeeks ? ' past' : '');
+      if (i === nowIdx) d.className = 'cell now';
+      d.setAttribute('data-i', i);
+      frag.appendChild(d);
+    }
+    grid.appendChild(frag);
+    $('gridNote').textContent = '涂黑了 ' + fmt(Math.min(g.livedWeeks, total)) + ' 格，还剩 ' + fmt(Math.max(0, total - g.livedWeeks - 1)) + ' 格。';
+
+    // 点击格子（触屏友好，事件委托）
+    grid.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t.getAttribute || t.getAttribute('data-i') === null) return;
+      var i = parseInt(t.getAttribute('data-i'), 10);
+      var age = Math.floor(i / 52);
+      var w = i % 52 + 1;
+      if (i > g.livedWeeks) $('weekTip').textContent = '第 ' + (i + 1) + ' 周 · 你 ' + age + ' 岁（还没到时候）';
+      else if (i === nowIdx) $('weekTip').textContent = '第 ' + (i + 1) + ' 周 · 你 ' + age + ' 岁 —— 就是现在这一格';
+      else $('weekTip').textContent = '第 ' + (i + 1) + ' 周 · 你 ' + age + ' 岁的第 ' + w + ' 周';
+    });
+
+    /* 数据卡 */
+    var summers = Math.max(0, g.lifespan - g.ageYears);
+    var cakes = summers; // 生日蛋糕数
+    var html =
+      '<div class="stat"><div class="num">' + fmt(g.livedDays) + '<small>天</small></div><div class="desc">你已经活过的日子</div></div>' +
+      '<div class="stat hi"><div class="num">' + fmt(g.weeksLeft) + '<small>个</small></div><div class="desc">剩下的周末</div></div>' +
+      '<div class="stat"><div class="num">' + summers + '<small>个</small></div><div class="desc">剩下的夏天</div></div>' +
+      '<div class="stat"><div class="num">' + cakes + '<small>次</small></div><div class="desc">还能吹的生日蜡烛</div></div>';
+    $('stats').innerHTML = html;
+
+    /* 今年 / 今天（实时） */
+    if (tickTimer) clearInterval(tickTimer);
+    function tick() {
+      var now = new Date();
+      var y0 = new Date(now.getFullYear(), 0, 1);
+      var y1 = new Date(now.getFullYear() + 1, 0, 1);
+      var yp = (now - y0) / (y1 - y0) * 100;
+      var yLeft = Math.ceil((y1 - now) / DAY);
+      var d0 = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      var dp = (now - d0) / DAY * 100;
+      var hLeft = Math.ceil((DAY - (now - d0)) / 3600000);
+      $('today').innerHTML =
+        '<div class="stat"><div class="num">' + yp.toFixed(1) + '<small>%</small></div><div class="desc">' + now.getFullYear() + ' 年已经过去</div>' +
+        '<div class="bar-row"><div class="bar"><i style="width:' + yp + '%"></i></div><div class="cap">今年还剩 ' + yLeft + ' 天</div></div></div>' +
+        '<div class="stat"><div class="num">' + dp.toFixed(1) + '<small>%</small></div><div class="desc">今天已经过去</div>' +
+        '<div class="bar-row"><div class="bar"><i style="width:' + dp + '%"></i></div><div class="cap">今天还剩 ' + hLeft + ' 小时</div></div></div>';
+    }
+    tick();
+    tickTimer = setInterval(tick, 1000);
+  }
+
+  /* ---------- 复制分享 ---------- */
+  function shareText() {
+    var g = G;
+    var pct = (g.livedDays / (g.lifespan * 365.25) * 100).toFixed(1);
+    return '假设活到 ' + g.lifespan + ' 岁，我的人生已经过去了 ' + pct + '%，' +
+      '剩下的周末大约还有 ' + fmt(g.weeksLeft) + ' 个，夏天还剩 ' + Math.max(0, g.lifespan - g.ageYears) + ' 个。' +
+      '你也来算算你的 → ' + location.href.split('#')[0];
+  }
+
+  $('copyBtn').addEventListener('click', function () {
+    if (!G) return;
+    var text = shareText();
+    var tip = $('shareTip');
+    var ta = $('shareText');
+    ta.value = text;
+
+    function fallback() {
+      tip.textContent = '长按下面的文字，全选复制：';
+      $('mask').classList.add('show');
+    }
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        toast('已复制，去粘贴给朋友吧');
+        tip.textContent = '已自动复制。如果没有，长按下面的文字手动复制：';
+        $('mask').classList.add('show');
+      }, fallback);
+    } else {
+      // 老内核：execCommand 尝试
+      try {
+        ta.style.display = 'block';
+        ta.value = text;
+        ta.focus(); ta.select();
+        var ok = document.execCommand('copy');
+        ta.blur();
+        if (ok) { toast('已复制，去粘贴给朋友吧'); return; }
+      } catch (e) {}
+      fallback();
+    }
+  });
+
+  $('modalCopy').addEventListener('click', function () {
+    var ta = $('shareText');
+    ta.focus(); ta.select();
+    try {
+      if (document.execCommand('copy')) { toast('已复制'); $('mask').classList.remove('show'); return; }
+    } catch (e) {}
+    toast('长按文字手动复制');
+  });
+  $('modalClose').addEventListener('click', function () { $('mask').classList.remove('show'); });
+  $('mask').addEventListener('click', function (e) { if (e.target === $('mask')) $('mask').classList.remove('show'); });
+
+  /* ---------- 重置 ---------- */
+  $('resetBtn').addEventListener('click', function () {
+    if (tickTimer) clearInterval(tickTimer);
+    $('result').style.display = 'none';
+    $('setup').style.display = 'block';
+    birthInput.value = ''; errBox.textContent = '';
+    try { localStorage.removeItem('life-birth'); } catch (e) {}
+    window.scrollTo(0, 0);
+  });
+
+})();
+</script>
+</body>
+</html>
