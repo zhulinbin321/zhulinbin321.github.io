@@ -610,6 +610,11 @@ section { padding-block: 76px; }
   color: var(--accent);
   font-size: 20px;
 }
+.pc-time {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
 .pc-arrow {
   color: var(--text-muted);
   transition: all .22s var(--ease);
@@ -619,6 +624,10 @@ section { padding-block: 76px; }
   color: var(--accent);
   transform: translate(3px, -3px);
 }
+
+/* 项目卡内的要点列表（复用时间线列表样式） */
+.project-card .tl-desc { margin-top: 12px; font-size: 14.5px; }
+.project-card .tl-desc li { margin-top: 0; }
 
 .project-card h3 { font-size: 18px; font-weight: 700; letter-spacing: -.2px; }
 .project-card > p {
