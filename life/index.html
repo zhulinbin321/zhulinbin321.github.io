@@ -144,6 +144,24 @@
   .week-tip { font-size: 13px; color: var(--text-soft); text-align: center; margin-top: 12px; min-height: 20px; }
   .grid-note { font-size: 14px; color: var(--text-muted); text-align: center; margin-top: 6px; }
 
+  /* ============ 时间感受理论 ============ */
+  .feel { margin-bottom: 30px; }
+  .feel-head { display: -webkit-flex; display: flex; -webkit-justify-content: space-between; justify-content: space-between; -webkit-align-items: center; align-items: center; margin-bottom: 10px; }
+  .feel-head h3 { font-size: 16px; font-weight: 700; }
+  .feel-tag {
+    font-size: 11px; font-weight: 600; color: var(--accent);
+    background: var(--accent-a10); border-radius: 99px; padding: 3px 10px;
+  }
+  .feel-intro { font-size: 13px; color: var(--text-soft); margin-bottom: 16px; }
+  .feel-row { display: -webkit-flex; display: flex; -webkit-align-items: center; align-items: center; margin-bottom: 12px; }
+  .feel-row:last-of-type { margin-bottom: 0; }
+  .feel-label { font-size: 12px; color: var(--text-muted); width: 58px; -webkit-flex-shrink: 0; flex-shrink: 0; }
+  .feel-row .bar { -webkit-flex: 1; flex: 1; height: 10px; }
+  .feel-val { font-size: 14px; font-weight: 700; width: 60px; text-align: right; -webkit-flex-shrink: 0; flex-shrink: 0; }
+  .feel-row.dim .bar i { background: var(--text-muted); }
+  .feel-row.hi .feel-val { color: var(--accent); }
+  .feel-note { font-size: 13px; color: var(--text-muted); margin-top: 14px; }
+
   /* ============ 数据卡 ============ */
   .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 30px; }
   .stat {
@@ -268,6 +286,25 @@
       <div class="bigbar-label" id="bigLabel"></div>
       <div class="bigbar"><div class="fill" id="bigFill"></div></div>
       <div class="bigbar-caption" id="bigCaption"></div>
+    </div>
+
+    <div class="card feel">
+      <div class="feel-head">
+        <h3>时间感受理论</h3>
+        <span class="feel-tag">对数时间</span>
+      </div>
+      <p class="feel-intro">有种理论说，人对时间的感受是对数的：一年的「长度」和你的年龄成反比。5 岁那年的一年，抵得上 50 岁的十年。</p>
+      <div class="feel-row dim">
+        <span class="feel-label">客观进度</span>
+        <div class="bar"><i id="feelObjBar"></i></div>
+        <span class="feel-val" id="feelObjVal">—</span>
+      </div>
+      <div class="feel-row hi">
+        <span class="feel-label">感受进度</span>
+        <div class="bar"><i id="feelPctBar"></i></div>
+        <span class="feel-val" id="feelPctVal">—</span>
+      </div>
+      <p class="feel-note" id="feelNote"></p>
     </div>
 
     <div class="grid-sec">
@@ -411,6 +448,32 @@
       ? '你已经活过 ' + g.lifespan + ' 岁的预算了。剩下的每一天都是白赚的。'
       : '按活到 ' + g.lifespan + ' 岁算，' + fmt(g.livedDays) + ' 天已经花掉了。';
 
+    /* 时间感受理论：感受长度 ∝ 1/年龄，记忆从 4 岁起算 */
+    var MEM = 4; // 记忆起点（岁）
+    var ageFloat = g.livedDays / 365.25;
+    var objPct = Math.min(100, pctNum);
+    var feelPct;
+    if (ageFloat <= MEM) {
+      feelPct = 0;
+    } else {
+      feelPct = Math.log(ageFloat / MEM) / Math.log(g.lifespan / MEM) * 100;
+      if (feelPct < 0) feelPct = 0;
+      if (feelPct > 100) feelPct = 100;
+    }
+    // 感受上的「人生半场」：√(寿命 × 记忆起点)
+    var midAge = Math.sqrt(g.lifespan * MEM);
+    $('feelObjBar').style.width = objPct + '%';
+    $('feelPctBar').style.width = feelPct + '%';
+    $('feelObjVal').textContent = objPct.toFixed(1) + '%';
+    $('feelPctVal').textContent = feelPct.toFixed(1) + '%';
+    if (ageFloat <= MEM) {
+      $('feelNote').textContent = '你的记忆才刚开始攒，进度条还没法算。';
+    } else if (ageFloat >= midAge) {
+      $('feelNote').textContent = '按这个算法（记忆从 ' + MEM + ' 岁开始），活到 ' + g.lifespan + ' 岁的话，人生的半场哨在 ' + midAge.toFixed(1) + ' 岁就吹了——你已经过了半场。';
+    } else {
+      $('feelNote').textContent = '按这个算法（记忆从 ' + MEM + ' 岁开始），活到 ' + g.lifespan + ' 岁的话，人生的半场哨会在 ' + midAge.toFixed(1) + ' 岁吹响。';
+    }
+
     /* 周格子图 */
     var grid = $('weeks');
     grid.innerHTML = '';
@@ -474,9 +537,12 @@
   function shareText() {
     var g = G;
     var pct = (g.livedDays / (g.lifespan * 365.25) * 100).toFixed(1);
-    return '假设活到 ' + g.lifespan + ' 岁，我的人生已经过去了 ' + pct + '%，' +
-      '剩下的周末大约还有 ' + fmt(g.weeksLeft) + ' 个，夏天还剩 ' + Math.max(0, g.lifespan - g.ageYears) + ' 个。' +
-      '你也来算算你的 → ' + location.href.split('#')[0];
+    var ageFloat = g.livedDays / 365.25;
+    var feel = ageFloat <= 4 ? 0
+      : Math.max(0, Math.min(100, Math.log(ageFloat / 4) / Math.log(g.lifespan / 4) * 100)).toFixed(1);
+    return '假设活到 ' + g.lifespan + ' 岁，我的人生客观上过去了 ' + pct + '%，' +
+      '但按「对数时间感受」算，感受上已经过去了 ' + feel + '%（' + Math.sqrt(g.lifespan * 4).toFixed(1) + ' 岁就是感受上的半场）。' +
+      '剩下的周末大约还有 ' + fmt(g.weeksLeft) + ' 个。你也来算算你的 → ' + location.href.split('#')[0];
   }
 
   $('copyBtn').addEventListener('click', function () {
