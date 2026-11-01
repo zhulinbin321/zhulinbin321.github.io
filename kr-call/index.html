@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="format-detection" content="telephone=no,email=no,address=no">
-<meta name="theme-color" content="#0b0d10">
-<title>📞 来电｜大韩民国总统 邀请你视频通话</title>
-<meta property="og:title" content="📞 大韩民国总统邀请你视频通话">
-<meta property="og:description" content="青瓦台来电，请接听。（娱乐整蛊页面）">
+<meta name="theme-color" content="#0d1008">
+<title>📞 来电｜全斗焕：你，忠诚吗？</title>
+<meta property="og:title" content="📞 全斗焕来电：你，忠诚吗？">
+<meta property="og:description" content="保安司令部专线，请接听。（反讽向整蛊页面）">
 <meta property="og:type" content="website">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -21,78 +21,68 @@ body{
 .view.active{display:flex}
 
 /* ============ 来电界面 ============ */
-#incoming{
-  align-items:center;justify-content:space-between;
-  background:#05070a;overflow:hidden;
-}
+#incoming{align-items:center;justify-content:space-between;background:#080a06;overflow:hidden}
 #incoming .blobs{position:absolute;inset:0;overflow:hidden;pointer-events:none}
-.blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.42;mix-blend-mode:screen}
-.b1{width:70vw;height:70vw;background:#1f6feb;top:-18vh;left:-18vw;animation:float1 11s ease-in-out infinite}
-.b2{width:60vw;height:60vw;background:#0aa;bottom:-16vh;right:-16vw;animation:float2 13s ease-in-out infinite}
-.b3{width:50vw;height:50vw;background:#8b3dff;top:38%;left:30%;animation:float1 9s ease-in-out infinite reverse}
+.blob{position:absolute;border-radius:50%;filter:blur(58px);opacity:.5;mix-blend-mode:screen}
+.b1{width:72vw;height:72vw;background:#4b6b23;top:-20vh;left:-20vw;animation:float1 11s ease-in-out infinite}
+.b2{width:62vw;height:62vw;background:#7a6a1e;bottom:-18vh;right:-18vw;animation:float2 13s ease-in-out infinite}
+.b3{width:52vw;height:52vw;background:#2c4a1e;top:36%;left:26%;animation:float1 9s ease-in-out infinite reverse}
 @keyframes float1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(6vw,5vh) scale(1.15)}}
 @keyframes float2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-7vw,-6vh) scale(1.1)}}
-#incoming::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.35)}
+#incoming::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.4)}
+.camo-wm{position:absolute;inset:0;z-index:1;display:flex;align-items:center;justify-content:center;
+  font-size:22vw;font-weight:900;color:rgba(255,255,255,.05);letter-spacing:.1em;pointer-events:none}
 
 .top{position:relative;z-index:2;width:100%;padding:calc(env(safe-area-inset-top) + 14px) 20px 0;text-align:center}
-.caller-label{font-size:12px;letter-spacing:.22em;color:rgba(255,255,255,.6)}
+.caller-label{font-size:12px;letter-spacing:.22em;color:rgba(255,255,255,.62)}
 .caller-label .dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:#07c160;margin-right:6px;animation:blink 1.2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
-.caller-sub{margin-top:8px;font-size:12px;color:rgba(255,255,255,.38)}
+.caller-sub{margin-top:8px;font-size:12px;color:rgba(255,255,255,.4)}
 
 .mid{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:22px}
 .avatar-wrap{position:relative}
 .avatar{
-  width:112px;height:112px;border-radius:50%;background:#fff;
+  width:116px;height:116px;border-radius:50%;background:#e8e3d3;
   display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 0 6px rgba(255,255,255,.08),0 12px 40px rgba(0,0,0,.5);
+  box-shadow:0 0 0 6px rgba(255,255,255,.09),0 12px 40px rgba(0,0,0,.55);
   animation:breathe 2.6s ease-in-out infinite;overflow:hidden;
 }
 @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
 .avatar svg{width:100%;height:100%}
-.halo{position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(255,255,255,.35);animation:halo 2.2s ease-out infinite}
+.halo{position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(190,220,150,.4);animation:halo 2.2s ease-out infinite}
 .halo.d2{animation-delay:1.1s}
 @keyframes halo{0%{transform:scale(.85);opacity:.7}100%{transform:scale(1.35);opacity:0}}
-.caller-name{font-size:23px;font-weight:600;letter-spacing:.04em;text-shadow:0 2px 12px rgba(0,0,0,.5)}
-.caller-desc{font-size:13px;color:rgba(255,255,255,.55);text-align:center;line-height:1.6}
+.caller-name{font-size:23px;font-weight:600;letter-spacing:.04em;text-shadow:0 2px 12px rgba(0,0,0,.6)}
+.caller-desc{font-size:13px;color:rgba(255,255,255,.58);text-align:center;line-height:1.6}
 
 .bottom{position:relative;z-index:2;width:100%;padding:0 26px calc(env(safe-area-inset-bottom) + 30px)}
 .acts{display:flex;justify-content:space-between;align-items:flex-end;padding:0 12px}
 .act{display:flex;flex-direction:column;align-items:center;gap:8px;background:none;border:0;color:rgba(255,255,255,.5);font-size:11px;font-family:inherit}
-.act .btn{
-  width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 6px 20px rgba(0,0,0,.45);transition:transform .12s;
-}
+.act .btn{width:66px;height:66px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 20px rgba(0,0,0,.5);transition:transform .12s}
 .act:active .btn{transform:scale(.9)}
 .act .btn.reject{background:#fa5151}
 .act .btn.accept{background:#07c160}
 .act .btn svg{width:30px;height:30px;fill:#fff}
 .act.accept .btn{animation:pulse 1.5s ease-in-out infinite}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(7,193,96,.55)}50%{box-shadow:0 0 0 16px rgba(7,193,96,0)}}
-.acts-tip{margin-top:16px;text-align:center;font-size:11px;color:rgba(255,255,255,.3)}
+.acts-tip{margin-top:16px;text-align:center;font-size:11px;color:rgba(255,255,255,.32)}
 
 /* ============ 通话界面 ============ */
 #calling{background:#000}
 .stage{position:absolute;inset:0;overflow:hidden;
-  background:radial-gradient(130% 80% at 50% 0%, #33415f 0%, #1a2135 45%, #0b0f18 100%);
-}
-.stage .window{
-  position:absolute;top:6%;left:8%;width:38%;height:34%;border-radius:6px;
-  background:repeating-linear-gradient(180deg,rgba(190,214,255,.16) 0 7px,rgba(10,14,22,.5) 7px 16px);
-  box-shadow:0 0 60px rgba(150,190,255,.12) inset;
-}
-.stage .shelf{position:absolute;top:12%;right:6%;width:30%;height:26%;
-  background:repeating-linear-gradient(180deg,rgba(120,140,180,.10) 0 3px,transparent 3px 26px);
-  border-left:2px solid rgba(255,255,255,.05);border-bottom:2px solid rgba(255,255,255,.05);}
-.stage .floor{position:absolute;left:0;right:0;bottom:0;height:32%;
-  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.55) 100%)}
-.stage .person{
-  position:absolute;left:50%;bottom:16%;transform:translateX(-50%);
-  width:62%;max-width:320px;animation:sway 6s ease-in-out infinite;
-  filter:drop-shadow(0 18px 30px rgba(0,0,0,.6));
-}
-@keyframes sway{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.015) rotate(.4deg)}}
-.vignette{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,transparent 40%,rgba(0,0,0,.65) 100%)}
+  background:radial-gradient(130% 80% at 50% 0%, #3c4a2c 0%, #1e2617 48%, #0a0d07 100%)}
+.stage .flag{position:absolute;top:9%;right:8%;width:64px;opacity:.85;filter:drop-shadow(0 4px 8px rgba(0,0,0,.5))}
+.stage .map{position:absolute;top:8%;left:7%;width:34%;height:24%;border:1px solid rgba(220,230,190,.25);
+  background:repeating-linear-gradient(90deg,rgba(220,230,190,.07) 0 1px,transparent 1px 14px),
+             repeating-linear-gradient(0deg,rgba(220,230,190,.07) 0 1px,transparent 1px 14px)}
+.stage .desk{position:absolute;left:0;right:0;bottom:0;height:26%;
+  background:linear-gradient(180deg,rgba(30,22,10,.5) 0%,rgba(12,10,6,.9) 100%)}
+.stage .person{position:absolute;left:50%;bottom:14%;transform:translateX(-50%);
+  width:66%;max-width:340px;animation:sway 6s ease-in-out infinite;
+  filter:drop-shadow(0 18px 30px rgba(0,0,0,.65))}
+@keyframes sway{0%,100%{transform:translateX(-50%) scale(1)}50%{transform:translateX(-50%) scale(1.02) rotate(.4deg)}}
+.vignette{position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 45%,transparent 38%,rgba(0,0,0,.7) 100%)}
 .scanlines{position:absolute;inset:0;pointer-events:none;opacity:.5;
   background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px)}
 .stage.glitch{animation:glitch .18s steps(2) infinite}
@@ -102,21 +92,50 @@ body{
 .mosaic{position:absolute;inset:0;opacity:0;pointer-events:none;
   background:repeating-conic-gradient(rgba(255,255,255,.10) 0% 25%, rgba(0,0,0,.18) 0% 50%) 0 0/14px 14px}
 .stage.badnet .mosaic{opacity:1}
+.flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none;z-index:5}
 
 .call-top{position:relative;z-index:3;padding:calc(env(safe-area-inset-top) + 12px) 16px 0;
   display:flex;align-items:center;gap:10px;text-shadow:0 1px 6px rgba(0,0,0,.6)}
 .call-top .back{width:34px;height:34px;display:flex;align-items:center;justify-content:center}
 .call-top .who{flex:1;text-align:center;font-size:15px;font-weight:600}
 .call-top .timer{font-size:12px;color:rgba(255,255,255,.7);min-width:52px;text-align:right;font-variant-numeric:tabular-nums}
-.net-tag{position:relative;z-index:3;align-self:center;margin-top:8px;
-  font-size:11px;color:rgba(255,255,255,.6);background:rgba(0,0,0,.32);
-  padding:4px 10px;border-radius:20px;backdrop-filter:blur(6px)}
+.net-tag{position:relative;z-index:3;align-self:center;margin-top:8px;font-size:11px;color:rgba(255,255,255,.62);
+  background:rgba(0,0,0,.34);padding:4px 10px;border-radius:20px}
 .net-tag.bad{color:#ffb02e}
 
-.subtitle-box{position:relative;z-index:3;margin:0 18px;min-height:76px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px}
-.line{font-size:16px;line-height:1.5;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,.85)}
+/* 忠诚互动面板 */
+.ask{position:relative;z-index:4;display:none;flex-direction:column;align-items:center;gap:14px;padding:0 24px}
+.ask.on{display:flex}
+.ask-tip{font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.06em}
+.shout{
+  width:150px;height:150px;border-radius:50%;border:3px solid rgba(220,240,180,.55);
+  background:radial-gradient(circle at 50% 35%, #6f8f3a 0%, #33421d 70%);
+  display:flex;align-items:center;justify-content:center;
+  font-size:34px;font-weight:900;color:#fff;letter-spacing:.06em;
+  box-shadow:0 10px 30px rgba(0,0,0,.55);transition:transform .1s;text-shadow:0 2px 8px rgba(0,0,0,.6);
+}
+.shout.press{transform:scale(.92);background:radial-gradient(circle at 50% 35%, #9dc45a 0%, #44591f 70%)}
+.loyalty{width:100%;max-width:280px}
+.loyalty .bar{height:12px;border-radius:8px;background:rgba(255,255,255,.14);overflow:hidden;
+  border:1px solid rgba(255,255,255,.18)}
+.loyalty .fill{height:100%;width:0%;border-radius:8px;
+  background:linear-gradient(90deg,#7a8f3a,#c9d94f);transition:width .12s linear}
+.loyalty .txt{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:rgba(255,255,255,.62)}
+.loyalty .txt b{color:#d8e88a;font-weight:700;font-variant-numeric:tabular-nums}
+
+/* 弹幕 */
+.danmu{position:absolute;inset:0;z-index:6;pointer-events:none;overflow:hidden}
+.danmu span{position:absolute;font-size:20px;font-weight:800;color:#eaffb0;text-shadow:0 2px 10px rgba(0,0,0,.8);
+  white-space:nowrap;animation:dm 2.4s linear forwards}
+@keyframes dm{0%{transform:translateY(0) scale(.7);opacity:0}
+  15%{opacity:1;transform:translateY(-20px) scale(1.1)}
+  100%{transform:translateY(-190px) scale(1);opacity:0}}
+
+.subtitle-box{position:relative;z-index:4;margin:14px 18px 0;min-height:74px;display:flex;flex-direction:column;justify-content:flex-end;gap:6px}
+.line{font-size:16px;line-height:1.5;text-align:center;text-shadow:0 2px 8px rgba(0,0,0,.9)}
 .line .who-tag{display:block;font-size:11px;margin-bottom:4px;opacity:.65}
 .line.me{color:#8fe3b0}
+.line.shouty{color:#ffd479;font-weight:700}
 .wave{display:flex;gap:3px;justify-content:center;height:14px;align-items:flex-end;opacity:0}
 .wave.on{opacity:.9}
 .wave i{width:3px;background:#fff;border-radius:2px;height:4px;animation:wv .6s ease-in-out infinite}
@@ -124,31 +143,39 @@ body{
 .wave i:nth-child(4){animation-delay:.3s}.wave i:nth-child(5){animation-delay:.15s}
 @keyframes wv{0%,100%{height:4px}50%{height:13px}}
 
-.call-bottom{position:relative;z-index:3;margin-top:auto;padding:0 20px calc(env(safe-area-inset-bottom) + 26px)}
+.call-bottom{position:relative;z-index:4;margin-top:auto;padding:0 20px calc(env(safe-area-inset-bottom) + 26px)}
 .ctrl{display:flex;justify-content:space-around;align-items:center}
 .ctrl button{width:56px;height:56px;border-radius:50%;border:0;background:rgba(255,255,255,.14);
-  display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+  display:flex;align-items:center;justify-content:center}
 .ctrl button svg{width:26px;height:26px;fill:#fff}
 .ctrl button.hang{background:#fa5151;width:64px;height:64px}
 .ctrl button.hang svg{width:30px;height:30px}
 .ctrl button.off{background:rgba(255,255,255,.34)}
 .self-view{position:absolute;right:14px;bottom:calc(env(safe-area-inset-bottom) + 100px);
-  width:92px;height:130px;border-radius:10px;overflow:hidden;background:#101418;
-  border:1px solid rgba(255,255,255,.14);z-index:4;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+  width:88px;height:124px;border-radius:10px;overflow:hidden;background:#101410;
+  border:1px solid rgba(255,255,255,.14);z-index:5;box-shadow:0 8px 24px rgba(0,0,0,.5)}
 .self-view video{width:100%;height:100%;object-fit:cover;transform:scaleX(-1)}
 .self-view .ph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
   gap:6px;font-size:10px;color:rgba(255,255,255,.45);text-align:center;padding:6px}
 .self-view .ph svg{width:24px;height:24px;fill:rgba(255,255,255,.35)}
 
 /* ============ 结束页 ============ */
-#ended{align-items:center;justify-content:center;background:#05070a;padding:24px;text-align:center}
-#ended .card{width:100%;max-width:340px}
-#ended .e-icon{width:64px;height:64px;margin:0 auto 18px;border-radius:50%;background:rgba(250,81,81,.16);
+#ended{align-items:center;justify-content:center;background:#080a06;padding:24px;text-align:center;overflow-y:auto}
+#ended .card{width:100%;max-width:340px;padding:10px 0}
+#ended .e-icon{width:64px;height:64px;margin:0 auto 16px;border-radius:50%;background:rgba(250,81,81,.16);
   display:flex;align-items:center;justify-content:center}
 #ended .e-icon svg{width:30px;height:30px;fill:#fa5151}
-#ended h1{font-size:20px;font-weight:600;margin-bottom:8px}
-#ended .meta{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:22px}
-.reveal{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+#ended h1{font-size:20px;font-weight:600;margin-bottom:10px}
+#ended .meta{font-size:12px;color:rgba(255,255,255,.45);margin-bottom:18px}
+.report{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:16px;text-align:left}
+.report .r-title{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.1em;margin-bottom:10px}
+.report .score{display:flex;align-items:baseline;gap:8px;margin-bottom:10px}
+.report .score .num{font-size:34px;font-weight:900;color:#d8e88a;line-height:1}
+.report .score .unit{font-size:14px;color:rgba(255,255,255,.6)}
+.report .rbar{height:10px;border-radius:6px;background:rgba(255,255,255,.14);overflow:hidden}
+.report .rbar i{display:block;height:100%;background:linear-gradient(90deg,#7a8f3a,#c9d94f)}
+.report .rrow{margin-top:10px;font-size:13px;color:rgba(255,255,255,.85);line-height:1.7}
+.reveal{margin-top:14px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
   border-radius:14px;padding:16px;text-align:left;font-size:14px;line-height:1.75;color:rgba(255,255,255,.9)}
 .reveal .r-title{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.1em;margin-bottom:8px}
 .reveal .r-big{color:#ffd479;font-weight:600}
@@ -164,14 +191,13 @@ body{
 .btns button:active{opacity:.8}
 
 /* ============ 提示层 ============ */
-#tapHint{position:fixed;inset:0;z-index:99;display:none;align-items:center;justify-content:center;
-  background:rgba(0,0,0,.35);backdrop-filter:blur(2px)}
+#tapHint{position:fixed;inset:0;z-index:99;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.35)}
 #tapHint.on{display:flex}
-#tapHint .t{background:rgba(0,0,0,.7);border:1px solid rgba(255,255,255,.16);border-radius:14px;
+#tapHint .t{background:rgba(0,0,0,.72);border:1px solid rgba(255,255,255,.16);border-radius:14px;
   padding:14px 20px;font-size:13px;color:rgba(255,255,255,.9);text-align:center;line-height:1.6}
-.toast{position:fixed;left:50%;top:14%;transform:translateX(-50%);z-index:100;
-  background:rgba(0,0,0,.72);border-radius:10px;padding:10px 16px;font-size:13px;
-  color:#fff;opacity:0;transition:opacity .25s;pointer-events:none;text-align:center}
+.toast{position:fixed;left:50%;top:14%;transform:translateX(-50%);z-index:100;background:rgba(0,0,0,.72);
+  border-radius:10px;padding:10px 16px;font-size:13px;color:#fff;opacity:0;transition:opacity .25s;
+  pointer-events:none;text-align:center;max-width:80%}
 .toast.on{opacity:1}
 </style>
 </head>
@@ -181,6 +207,7 @@ body{
   <!-- 来电 -->
   <section id="incoming" class="view active">
     <div class="blobs"><i class="blob b1"></i><i class="blob b2"></i><i class="blob b3"></i></div>
+    <div class="camo-wm">忠！诚！</div>
     <div class="top">
       <div class="caller-label"><span class="dot"></span>正在呼入视频通话</div>
       <div class="caller-sub" id="incomingTime"></div>
@@ -192,29 +219,28 @@ body{
           <svg viewBox="0 0 120 120" aria-hidden="true">
             <defs><clipPath id="cp"><circle cx="60" cy="60" r="60"/></clipPath></defs>
             <g clip-path="url(#cp)">
-              <rect width="120" height="120" fill="#f2f4f7"/>
-              <!-- 西装肩线剪影 -->
-              <path d="M60 72c-16 0-27 10-30 26l-4 22h68l-4-22c-3-16-14-26-30-26z" fill="#2b3446"/>
-              <path d="M57 74l3 8 3-8-3-3z" fill="#e9edf5"/>
-              <path d="M55 82l5 14 5-14-5-4z" fill="#c0392b"/>
-              <!-- 头 -->
-              <circle cx="60" cy="52" r="17" fill="#3b4557"/>
-              <path d="M43 50c0-11 8-18 17-18s17 7 17 18c0-3-6-6-17-6s-17 3-17 6z" fill="#20272f"/>
-              <!-- 太极徽章 -->
-              <g transform="translate(88,30) scale(0.42)">
-                <circle cx="0" cy="0" r="24" fill="#fff" stroke="#d0d5dd" stroke-width="1"/>
-                <path d="M0,-24 A24,24 0 0,1 0,24 A12,12 0 0,1 0,0 A12,12 0 0,0 0,-24 Z" fill="#cd2e3a"/>
-                <path d="M0,24 A24,24 0 0,1 0,-24 A12,12 0 0,1 0,0 A12,12 0 0,0 0,24 Z" fill="#0047a0"/>
-                <circle cx="0" cy="-11" r="3.6" fill="#0047a0"/>
-                <circle cx="0" cy="11" r="3.6" fill="#cd2e3a"/>
+              <rect width="120" height="120" fill="#e8e3d3"/>
+              <path d="M60 74c-17 0-28 10-31 27l-3 21h68l-3-21c-3-17-14-27-31-27z" fill="#3d4a28"/>
+              <path d="M60 74c-17 0-28 10-31 27l-1 6c9-20 17-28 32-28s23 8 32 28l-1-6c-3-17-14-27-31-27z" fill="#4a5a30"/>
+              <path d="M40 78l6 4-6 5zM80 78l-6 4 6 5z" fill="#b9a84a"/>
+              <rect x="72" y="98" width="18" height="5" rx="1" fill="#8a7c33"/>
+              <rect x="72" y="106" width="18" height="5" rx="1" fill="#7a5a2a"/>
+              <circle cx="60" cy="48" r="18" fill="#c9a882"/>
+              <path d="M41 42c0-12 8-19 19-19s19 7 19 19c0 3-1 5-3 5H44c-2 0-3-2-3-5z" fill="#33401f"/>
+              <path d="M38 47h44c3 0 5 2 5 4H33c0-2 2-4 5-4z" fill="#2a351a"/>
+              <circle cx="60" cy="30" r="4" fill="#c8b04a"/>
+              <g fill="none" stroke="#20242a" stroke-width="2.4">
+                <rect x="46" y="44" width="12" height="9" rx="3"/>
+                <rect x="62" y="44" width="12" height="9" rx="3"/>
+                <path d="M58 48h4"/>
               </g>
             </g>
           </svg>
         </div>
       </div>
       <div>
-        <div class="caller-name">대한민국 대통령</div>
-        <div class="caller-desc">大韩民国总统室 · 邀请你进行视频通话<br><span id="calleeTag"></span></div>
+        <div class="caller-name">전두환 <span style="font-size:14px;opacity:.7">小将</span></div>
+        <div class="caller-desc">保安司令部专线 · 邀请你进行视频通话<br><span id="calleeTag"></span></div>
       </div>
     </div>
     <div class="bottom">
@@ -232,38 +258,71 @@ body{
           <span>接听</span>
         </button>
       </div>
-      <div class="acts-tip">本页面为娱乐整蛊效果，与任何真实人物、机构无关</div>
+      <div class="acts-tip">反讽向整蛊页面，纯属虚构，请勿当真</div>
     </div>
   </section>
 
   <!-- 通话中 -->
   <section id="calling" class="view">
     <div class="stage" id="stage">
-      <div class="window"></div><div class="shelf"></div><div class="floor"></div>
+      <div class="map"></div>
+      <svg class="flag" viewBox="0 0 90 60" aria-hidden="true">
+        <rect width="90" height="60" fill="#f2f4f7"/>
+        <g transform="translate(45,30) scale(0.62)">
+          <path d="M0,-24 A24,24 0 0,1 0,24 A12,12 0 0,1 0,0 A12,12 0 0,0 0,-24 Z" fill="#cd2e3a"/>
+          <path d="M0,24 A24,24 0 0,1 0,-24 A12,12 0 0,1 0,0 A12,12 0 0,0 0,24 Z" fill="#0047a0"/>
+          <circle cx="0" cy="-11" r="3.6" fill="#0047a0"/>
+          <circle cx="0" cy="11" r="3.6" fill="#cd2e3a"/>
+        </g>
+        <g fill="#111" transform="translate(10,8)">
+          <rect width="18" height="3"/><rect y="6" width="18" height="3"/><rect y="12" width="18" height="3"/>
+        </g>
+        <g fill="#111" transform="translate(62,8)">
+          <rect width="18" height="3"/><rect y="6" width="18" height="3"/><rect y="12" width="18" height="3"/>
+        </g>
+      </svg>
+      <div class="desk"></div>
       <svg class="person" viewBox="0 0 200 220" aria-hidden="true">
         <ellipse cx="100" cy="212" rx="72" ry="10" fill="rgba(0,0,0,.35)"/>
-        <path d="M100 96c-30 0-50 18-56 52l-6 44h124l-6-44c-6-34-26-52-56-52z" fill="#1c2436"/>
-        <path d="M100 96c-30 0-50 18-56 52l-2 16c8-26 28-40 58-40s50 14 58 40l-2-16c-6-34-26-52-56-52z" fill="#26304a"/>
-        <path d="M92 98l8 22 8-22-8-6z" fill="#e7ebf2"/>
-        <path d="M86 122l14 40 14-40-14-10z" fill="#b5322a"/>
-        <circle cx="100" cy="66" r="34" fill="#2a3348"/>
-        <path d="M66 62c0-23 15-36 34-36s34 13 34 36c2-8-12-14-34-14s-36 6-34 14z" fill="#161b26"/>
-        <path d="M88 66h5v7h-5zM107 66h5v7h-5z" fill="#0e1218" opacity=".7"/>
-        <path d="M92 84c5 4 11 4 16 0" stroke="#0e1218" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".6"/>
+        <path d="M100 92c-31 0-52 19-58 54l-6 46h128l-6-46c-6-35-27-54-58-54z" fill="#3a4726"/>
+        <path d="M100 92c-31 0-52 19-58 54l-2 16c9-27 29-42 60-42s51 15 60 42l-2-16c-6-35-27-54-58-54z" fill="#475733"/>
+        <path d="M62 100l14 6-10 18zM138 100l-14 6 10 18z" fill="#c3b155"/>
+        <rect x="112" y="132" width="26" height="7" rx="1" fill="#9a8b3f"/>
+        <rect x="112" y="143" width="26" height="7" rx="1" fill="#7a5a2a"/>
+        <circle cx="100" cy="60" r="34" fill="#b99770"/>
+        <path d="M66 56c0-20 15-31 34-31s34 11 34 31c0 4-1 7-4 7H70c-3 0-4-3-4-7z" fill="#2f3c1d"/>
+        <path d="M60 62h80c5 0 8 3 8 7H52c0-4 3-7 8-7z" fill="#26311a"/>
+        <circle cx="100" cy="36" r="7" fill="#c8b04a"/>
+        <g fill="none" stroke="#20242a" stroke-width="3">
+          <rect x="76" y="60" width="20" height="14" rx="4"/>
+          <rect x="104" y="60" width="20" height="14" rx="4"/>
+          <path d="M96 67h8"/>
+        </g>
       </svg>
       <div class="vignette"></div><div class="mosaic"></div><div class="scanlines"></div>
+      <div class="flash" id="flash"></div>
+      <div class="danmu" id="danmu"></div>
     </div>
 
     <div class="call-top">
       <div class="back">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="rgba(255,255,255,.85)"><path d="M15.4 4.6L8 12l7.4 7.4 1.4-1.4L10.8 12l6-6z"/></svg>
       </div>
-      <div class="who">대한민국 대통령</div>
+      <div class="who">전두환 小将</div>
       <div class="timer" id="callTimer">00:00</div>
     </div>
-    <div class="net-tag" id="netTag">🇰🇷 首尔 · 网络良好 · 延迟 28ms</div>
+    <div class="net-tag" id="netTag">🇰🇷 首尔 · 保安司令部专线</div>
 
     <div style="flex:1"></div>
+
+    <div class="ask" id="ask">
+      <div class="ask-tip" id="askTip">按住按钮，把忠诚喊出来</div>
+      <div class="shout" id="btnShout">忠！诚！</div>
+      <div class="loyalty">
+        <div class="bar"><div class="fill" id="loyFill"></div></div>
+        <div class="txt"><span>忠诚度</span><b id="loyNum">0%</b></div>
+      </div>
+    </div>
 
     <div class="subtitle-box">
       <div class="wave" id="wave"><i></i><i></i><i></i><i></i><i></i></div>
@@ -300,12 +359,18 @@ body{
         <svg viewBox="0 0 24 24"><path d="M4.8 4.8L2.4 7.2 9.6 14.4 6 18l2.4 2.4 3.6-3.6 7.2 7.2 2.4-2.4z"/></svg>
       </div>
       <h1 id="endTitle">通话已结束</h1>
-      <div class="meta" id="endMeta">通话时长 00:00 · 通话质量：较差</div>
+      <div class="meta" id="endMeta">通话时长 00:00</div>
+      <div class="report">
+        <div class="r-title">忠 诚 度 报 告</div>
+        <div class="score"><span class="num" id="repNum">0%</span><span class="unit" id="repRank">评级：—</span></div>
+        <div class="rbar"><i id="repBar"></i></div>
+        <div class="rrow" id="repRow"></div>
+      </div>
       <div class="reveal" id="endReveal"></div>
-      <div class="disclaim">本页面纯属虚构，仅用于朋友间娱乐整蛊，与任何真实人物、机构无关。</div>
+      <div class="disclaim">本页面为反讽向娱乐整蛊，纯属虚构，与任何真实人物、机构无关，请勿当真。</div>
       <div class="share-box">
-        <input id="friendName" type="text" placeholder="输入朋友的名字" maxlength="12">
-        <button class="btn-primary" style="height:44px;border-radius:10px;padding:0 14px" id="btnGen">转发给他</button>
+        <input id="friendName" type="text" placeholder="输入下一个同志的名字" maxlength="12">
+        <button class="btn-primary" style="height:44px;border-radius:10px;padding:0 14px" id="btnGen">转给他</button>
       </div>
       <div class="btns">
         <button class="btn-primary" id="btnAgain">再接一次</button>
@@ -328,8 +393,8 @@ body{
     return m ? decodeURIComponent(m[1]) : '';
   }
   var rawName = getParam('n').trim();
-  var NAME = rawName.replace(/[<>"'&]/g, '').slice(0, 12) || '这位中国朋友';
-  document.getElementById('calleeTag').textContent = rawName ? ('呼叫：' + NAME) : '未知号码 · 国际来电';
+  var NAME = rawName.replace(/[<>"'&]/g, '').slice(0, 12) || '同志';
+  document.getElementById('calleeTag').textContent = rawName ? ('呼叫：' + NAME + ' 同志') : '未知号码 · 国际来电';
 
   var $ = function(id){ return document.getElementById(id); };
   var views = { incoming: $('incoming'), calling: $('calling'), ended: $('ended') };
@@ -340,12 +405,11 @@ body{
     }
   }
 
-  /* ---------- 时钟 ---------- */
   var d = new Date();
   $('incomingTime').textContent = ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2) + ' · 国际来电';
 
-  /* ---------- 音频（Web Audio 合成，无外部文件） ---------- */
-  var ctx = null, master = null;
+  /* ---------- 音频 ---------- */
+  var ctx = null, master = null, noiseBuf = null;
   function ensureAudio(){
     if (!ctx){
       var AC = window.AudioContext || window.webkitAudioContext;
@@ -357,6 +421,14 @@ body{
     }
     if (ctx.state === 'suspended'){ try { ctx.resume(); } catch(e){} }
     return ctx.state === 'running';
+  }
+  function noise(){
+    if (noiseBuf) return noiseBuf;
+    var len = Math.floor(ctx.sampleRate * 0.6);
+    noiseBuf = ctx.createBuffer(1, len, ctx.sampleRate);
+    var ch = noiseBuf.getChannelData(0);
+    for (var i = 0; i < len; i++) ch[i] = Math.random() * 2 - 1;
+    return noiseBuf;
   }
   function tone(freq, dur, type, gain, when){
     if (!ctx) return;
@@ -372,19 +444,18 @@ body{
   }
   function connectTone(){
     if (!ensureAudio()) return;
-    var base = ctx.currentTime + 0.05;
-    tone(523.25, 0.12, 'sine', 0.22, base);
-    tone(659.25, 0.12, 'sine', 0.22, base + 0.11);
-    tone(783.99, 0.22, 'sine', 0.20, base + 0.22);
+    var b = ctx.currentTime + 0.05;
+    tone(523.25, 0.12, 'sine', 0.22, b);
+    tone(659.25, 0.12, 'sine', 0.22, b + 0.11);
+    tone(783.99, 0.22, 'sine', 0.20, b + 0.22);
   }
   function hangupTone(){
     if (!ensureAudio()) return;
-    var base = ctx.currentTime + 0.02;
-    tone(659.25, 0.14, 'sine', 0.20, base);
-    tone(523.25, 0.14, 'sine', 0.20, base + 0.13);
-    tone(392.00, 0.30, 'sine', 0.16, base + 0.26);
+    var b = ctx.currentTime + 0.02;
+    tone(659.25, 0.14, 'sine', 0.20, b);
+    tone(523.25, 0.14, 'sine', 0.20, b + 0.13);
+    tone(392.00, 0.30, 'sine', 0.16, b + 0.26);
   }
-  // 说话时的含糊语音（低音量，模拟对方在讲话）
   function mumble(dur){
     if (!ctx || ctx.state !== 'running') return;
     var n = Math.max(1, Math.round(dur / 0.19));
@@ -402,14 +473,49 @@ body{
       o.start(t); o.stop(t + 0.18);
     }
   }
+  // 「충성!」齐声吼：两音节 + 三人叠音
+  var SYLL = [
+    { t: 0.00, d: 0.34, f0: 132, f1: 540, f2: 1180 },
+    { t: 0.42, d: 0.55, f0: 122, f1: 430, f2: 1020 }
+  ];
+  function shout(vol){
+    if (!ctx || ctx.state !== 'running') return;
+    var base = ctx.currentTime + 0.02;
+    var voices = [{ det: -7, dly: 0.00, g: 0.9 }, { det: 0, dly: 0.03, g: 1.0 }, { det: 8, dly: 0.07, g: 0.85 }];
+    for (var v = 0; v < voices.length; v++){
+      var vo = voices[v];
+      for (var s = 0; s < SYLL.length; s++){
+        var sy = SYLL[s], t = base + sy.t + vo.dly;
+        var f0 = sy.f0 * (1 + vo.det / 100);
+        var o = ctx.createOscillator(); o.type = 'sawtooth';
+        o.frequency.setValueAtTime(f0, t);
+        o.frequency.linearRampToValueAtTime(f0 * 0.9, t + sy.d);
+        var bp1 = ctx.createBiquadFilter(); bp1.type = 'bandpass'; bp1.frequency.value = sy.f1; bp1.Q.value = 5;
+        var pk = ctx.createBiquadFilter(); pk.type = 'peaking'; pk.frequency.value = sy.f2; pk.Q.value = 4; pk.gain.value = 8;
+        var g = ctx.createGain();
+        var amp = 0.17 * vol * vo.g;
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.linearRampToValueAtTime(amp, t + 0.05);
+        g.gain.setValueAtTime(amp, t + sy.d * 0.62);
+        g.gain.setTargetAtTime(0.0001, t + sy.d * 0.78, 0.11);
+        var ns = ctx.createBufferSource(); ns.buffer = noise();
+        var nf = ctx.createBiquadFilter(); nf.type = 'bandpass'; nf.frequency.value = 1900; nf.Q.value = 0.8;
+        var ng = ctx.createGain();
+        ng.gain.setValueAtTime(0.3 * vol, t);
+        ng.gain.setTargetAtTime(0.0001, t + 0.09, 0.05);
+        o.connect(bp1); bp1.connect(pk); pk.connect(g); g.connect(master);
+        ns.connect(nf); nf.connect(ng); ng.connect(g);
+        o.start(t); o.stop(t + sy.d + 0.35);
+        ns.start(t); ns.stop(t + 0.35);
+      }
+    }
+  }
 
-  // 微信风来电铃声：两声上行短音 + 停顿，循环
+  // 微信风来电铃声
   var RING_PERIOD = 1.72;
   var RING_SEQ = [
-    { off: 0.00, f: 659.25, d: 0.15 },
-    { off: 0.18, f: 783.99, d: 0.15 },
-    { off: 0.64, f: 659.25, d: 0.15 },
-    { off: 0.82, f: 783.99, d: 0.15 }
+    { off: 0.00, f: 659.25, d: 0.15 }, { off: 0.18, f: 783.99, d: 0.15 },
+    { off: 0.64, f: 659.25, d: 0.15 }, { off: 0.82, f: 783.99, d: 0.15 }
   ];
   var ringing = false, ringTimer = null, nextRingAt = 0, vibTimer = null;
   function scheduleRing(){
@@ -418,10 +524,10 @@ body{
     if (nextRingAt < now) nextRingAt = now + 0.05;
     while (nextRingAt < now + 1.0){
       for (var i = 0; i < RING_SEQ.length; i++){
-        var s = RING_SEQ[i], base = nextRingAt + s.off;
-        tone(s.f, s.d, 'triangle', 0.20, base);
-        tone(s.f * 2, s.d, 'sine', 0.045, base + 0.02);
-        tone(s.f, s.d * 0.8, 'sine', 0.06, base + 0.05);
+        var s = RING_SEQ[i], b = nextRingAt + s.off;
+        tone(s.f, s.d, 'triangle', 0.20, b);
+        tone(s.f * 2, s.d, 'sine', 0.045, b + 0.02);
+        tone(s.f, s.d * 0.8, 'sine', 0.06, b + 0.05);
       }
       nextRingAt += RING_PERIOD;
     }
@@ -445,7 +551,6 @@ body{
     if (navigator.vibrate) try { navigator.vibrate(0); } catch(e){}
   }
 
-  /* ---------- 首个手势解锁音频 ---------- */
   var hint = $('tapHint');
   function tryAutoStart(){
     if (ringing) return;
@@ -457,14 +562,14 @@ body{
     if (!ringing) startRing();
   });
   document.addEventListener('touchstart', function once(){
-    if (hint.classList.contains('on')){ hint.classList.remove('on'); }
+    hint.classList.remove('on');
     if (!ringing) startRing();
     document.removeEventListener('touchstart', once);
   }, { passive: true });
   window.addEventListener('load', tryAutoStart);
   tryAutoStart();
 
-  /* ---------- 字幕/剧本 ---------- */
+  /* ---------- 字幕 ---------- */
   var timers = [], typeTimers = [], callSec = 0, callTick = null, muted = false, rejected = 0;
   function clearTimers(){
     for (var i = 0; i < timers.length; i++) clearTimeout(timers[i]);
@@ -474,22 +579,22 @@ body{
   function later(fn, ms){ timers.push(setTimeout(fn, ms)); }
 
   var subLine = $('subLine'), wave = $('wave');
-  function say(who, text, dur){
-    var tag = who === 'me' ? '你' : '对方';
-    subLine.className = 'line' + (who === 'me' ? ' me' : '');
+  function say(who, text, dur, shouty){
+    var tag = who === 'me' ? '你' : '阁下';
+    subLine.className = 'line' + (who === 'me' ? ' me' : '') + (shouty ? ' shouty' : '');
     subLine.innerHTML = '';
     var t = document.createElement('span');
     t.className = 'who-tag'; t.textContent = tag;
     var b = document.createElement('span');
     subLine.appendChild(t); subLine.appendChild(b);
-    var i = 0, step = Math.max(28, Math.min(70, dur * 1000 / Math.max(6, text.length)));
-    var typeTimer = setInterval(function(){
+    var i = 0, step = Math.max(26, Math.min(70, dur * 1000 / Math.max(6, text.length)));
+    var ti = setInterval(function(){
       b.textContent = text.slice(0, ++i);
-      if (i >= text.length) clearInterval(typeTimer);
+      if (i >= text.length) clearInterval(ti);
     }, step);
-    typeTimers.push(typeTimer);
+    typeTimers.push(ti);
     wave.classList.add('on');
-    if (!muted && who !== 'me') mumble(dur * 0.85);
+    if (!muted && who !== 'me') mumble(dur * (shouty ? 1.05 : 0.85));
     later(function(){ wave.classList.remove('on'); }, dur * 1000);
   }
 
@@ -501,7 +606,7 @@ body{
     later(function(){
       stage.classList.remove('glitch', 'badnet');
       netTag.classList.remove('bad');
-      netTag.textContent = '🇰🇷 首尔 · 网络良好 · 延迟 28ms';
+      netTag.textContent = '🇰🇷 首尔 · 保安司令部专线';
     }, ms);
   }
 
@@ -510,22 +615,137 @@ body{
     $('callTimer').textContent = '00:00';
     callTick = setInterval(function(){
       callSec++;
-      var m = ('0' + Math.floor(callSec / 60)).slice(-2), s = ('0' + (callSec % 60)).slice(-2);
-      $('callTimer').textContent = m + ':' + s;
+      $('callTimer').textContent = ('0' + Math.floor(callSec / 60)).slice(-2) + ':' + ('0' + (callSec % 60)).slice(-2);
     }, 1000);
   }
-  function fmtSec(){ var m = ('0' + Math.floor(callSec / 60)).slice(-2), s = ('0' + (callSec % 60)).slice(-2); return m + ':' + s; }
+  function fmtSec(){ return ('0' + Math.floor(callSec / 60)).slice(-2) + ':' + ('0' + (callSec % 60)).slice(-2); }
 
-  /* ---------- 摄像头小窗 ---------- */
+  /* ---------- 弹幕 / 闪白 ---------- */
+  var danmu = $('danmu'), flash = $('flash');
+  function flyDanmu(){
+    var texts = ['충성!', '忠诚!', '충성!', '忠!诚!', '충성!!'];
+    for (var i = 0; i < 2; i++){
+      var s = document.createElement('span');
+      s.textContent = texts[Math.floor(Math.random() * texts.length)];
+      s.style.left = (8 + Math.random() * 64) + '%';
+      s.style.bottom = (18 + Math.random() * 26) + '%';
+      s.style.fontSize = (16 + Math.random() * 12) + 'px';
+      danmu.appendChild(s);
+      (function(el){ setTimeout(function(){ if (el.parentNode) el.parentNode.removeChild(el); }, 2500); })(s);
+    }
+  }
+  function bang(){
+    flash.style.opacity = '0.5';
+    setTimeout(function(){ flash.style.opacity = '0'; }, 90);
+  }
+
+  /* ---------- 忠诚互动 ---------- */
+  var ask = $('ask'), btnShout = $('btnShout'), loyFill = $('loyFill'), loyNum = $('loyNum');
+  var loy = 0, holding = false, pressStart = 0, shoutLoop = null, loyRaf = null, urge = 0, phase = 'idle';
+
+  function setLoy(v){
+    loy = Math.max(0, Math.min(100, v));
+    loyFill.style.width = loy + '%';
+    loyNum.textContent = Math.floor(loy) + '%';
+  }
+  function pressBegin(e){
+    if (phase !== 'ask') return;
+    if (e && e.cancelable) e.preventDefault();
+    if (holding) return;
+    holding = true;
+    pressStart = Date.now();
+    btnShout.classList.add('press');
+    if (navigator.vibrate) try { navigator.vibrate(1200); } catch(err){}
+    shout(0.75); flyDanmu(); bang();
+    clearInterval(shoutLoop);
+    shoutLoop = setInterval(function(){
+      var long = (Date.now() - pressStart) / 1000;
+      shout(Math.min(1, 0.75 + long * 0.12));
+      flyDanmu();
+      if (Math.random() < 0.4) bang();
+    }, 1150);
+  }
+  function pressEnd(){
+    if (!holding) return;
+    holding = false;
+    btnShout.classList.remove('press');
+    clearInterval(shoutLoop); shoutLoop = null;
+    if (navigator.vibrate) try { navigator.vibrate(0); } catch(err){}
+  }
+  btnShout.addEventListener('touchstart', pressBegin, { passive: false });
+  btnShout.addEventListener('touchend', pressEnd);
+  btnShout.addEventListener('touchcancel', pressEnd);
+  btnShout.addEventListener('mousedown', pressBegin);
+  window.addEventListener('mouseup', pressEnd);
+  window.addEventListener('touchmove', function(){ if (holding) pressEnd(); }, { passive: true });
+
+  function loyaltyTick(){
+    if (phase !== 'ask'){ loyRaf = null; return; }
+    if (holding) setLoy(loy + 17 * 0.05);
+    else setLoy(loy - 5.5 * 0.05);
+    if (loy >= 100){ loyRaf = null; passLoyalty(); return; }
+    loyRaf = setTimeout(loyaltyTick, 50);
+  }
+
+  var URGES = [
+    '我听不见！大点声！',
+    '你午饭是不是没吃？再来一次！',
+    '隔壁班的都比你喊得响！'
+  ];
+  function urgeAgain(){
+    if (phase !== 'ask') return;
+    if (urge < URGES.length){
+      say('other', URGES[urge], 1.8, true);
+      urge++;
+      later(urgeAgain, 3400);
+    } else {
+      failLoyalty();
+    }
+  }
+
+  function startAsk(){
+    phase = 'ask';
+    ask.classList.add('on');
+    setLoy(0);
+    say('other', '你——忠诚吗？', 1.8, true);
+    later(urgeAgain, 3600);
+    if (loyRaf) clearTimeout(loyRaf);
+    loyRaf = setTimeout(loyaltyTick, 50);
+  }
+
+  function passLoyalty(){
+    phase = 'after';
+    pressEnd();
+    ask.classList.remove('on');
+    for (var i = 0; i < 6; i++) flyDanmu();
+    bang();
+    later(function(){ say('other', '很好。很好。', 1.6); }, 400);
+    later(function(){ say('other', '从今天起，你是一心会第 128 号会员。', 2.6); }, 2300);
+    later(function(){ say('other', '还有最后一件事……', 1.8); }, 5200);
+    later(function(){ glitch(2000); subLine.textContent = ''; }, 7000);
+    later(function(){ say('other', '……等等，你是中国移动号？', 2.2); }, 7600);
+    later(function(){ say('other', '……那没事了。', 1.6); }, 10000);
+    later(function(){ endCall('pass'); }, 11800);
+  }
+
+  function failLoyalty(){
+    phase = 'after';
+    pressEnd();
+    ask.classList.remove('on');
+    later(function(){ say('other', '算了。你不忠诚。', 1.8); }, 200);
+    later(function(){ endCall('fail'); }, 2200);
+  }
+
+  /* ---------- 摄像头 ---------- */
   function openSelfCam(){
     var v = $('selfVideo');
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
     navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' }, audio: false })
       .then(function(stream){ v.srcObject = stream; $('selfPh').style.display = 'none'; })
-      .catch(function(){ /* 降级：保留占位 */ });
+      .catch(function(){});
   }
 
-  /* ---------- 通话流程 ---------- */
+  /* ---------- 通话 ---------- */
   function accept(){
     stopRing();
     ensureAudio();
@@ -533,62 +753,86 @@ body{
     show('calling');
     startTimer();
     openSelfCam();
-    later(function(){ say('other', '喂？……喂——听得到吗？', 2.2); }, 900);
-    later(function(){ say('other', '请问是 ' + NAME + ' 吗？', 2.4); }, 3400);
-    later(function(){ say('other', '这里是青瓦台。我是大韩民国总统。', 2.9); }, 6200);
-    later(function(){ say('other', '别紧张，不是什么坏事。', 2.0); }, 9500);
-    later(function(){ say('other', '我们内阁开了整整三天的会……', 2.4); }, 11800);
-    later(function(){ say('other', '决定把第 21 任「荣誉泡菜品鉴官」', 2.6); }, 14500);
-    later(function(){ say('other', '……授予给你。', 1.8); }, 17400);
-    later(function(){ say('other', '这是很高的荣誉，全国只有三个人拿到过。', 3.0); glitch(1400); }, 19500);
-    later(function(){ say('me', '（你沉默了）', 2.0); }, 22800);
-    later(function(){ say('other', '喂？喂？信号不好吗？', 2.2); glitch(1600); }, 25200);
-    later(function(){ say('other', '其实还有一件事，就是那个……', 2.4); }, 27800);
-    later(function(){ glitch(2200, true); subLine.textContent = ''; }, 30500);
-    later(function(){ finish('network'); }, 33200);
+    urge = 0; setLoy(0);
+    later(function(){ say('other', '喂？……喂！听得到吗！', 2.0, true); }, 900);
+    later(function(){ say('other', '这里是保安司令部。我是全斗焕。', 2.6); }, 3300);
+    later(function(){ say('other', '不用紧张。我只问你一件事。', 2.2); }, 6200);
+    later(startAsk, 8700);
   }
 
   function endCall(kind){
+    phase = 'idle';
+    pressEnd();
     clearTimers();
+    if (loyRaf){ clearTimeout(loyRaf); loyRaf = null; }
     if (callTick){ clearInterval(callTick); callTick = null; }
     stopRing();
     hangupTone();
     var v = $('selfVideo');
     if (v.srcObject){ v.srcObject.getTracks().forEach(function(t){ t.stop(); }); v.srcObject = null; $('selfPh').style.display = 'flex'; }
-    subLine.textContent = ''; wave.classList.remove('on');
+    subLine.textContent = '';
+    wave.classList.remove('on');
     finish(kind);
   }
+
+  function row(text){ var d = document.createElement('div'); d.textContent = text; return d; }
 
   function finish(kind){
     show('ended');
     var title = $('endTitle'), meta = $('endMeta'), reveal = $('endReveal');
+    var repNum = $('repNum'), repRank = $('repRank'), repBar = $('repBar'), repRow = $('repRow');
+    reveal.innerHTML = ''; repRow.innerHTML = '';
+
     if (kind === 'reject3'){
       title.textContent = '他不再打了';
       meta.textContent = '未接来电 3 次 · 已拒接';
-      reveal.innerHTML = '';
-      var a = document.createElement('div');
-      a.className = 'r-title'; a.textContent = '他发来一条消息';
-      var b = document.createElement('div');
-      b.className = 'r-big';
-      b.textContent = '「我懂了。」';
-      var c = document.createElement('div');
-      c.style.marginTop = '8px';
-      c.textContent = '（三个小时后又发来一句：「真的只是想聊聊泡菜。」）';
-      reveal.appendChild(a); reveal.appendChild(b); reveal.appendChild(c);
+      repNum.textContent = '0%';
+      repNum.style.color = '#ff9a9a';
+      repRank.textContent = '评级：不忠诚';
+      repBar.style.width = '2%';
+      repRow.appendChild(row('你已被移出一心会候选名单。'));
+      repRow.appendChild(row('（名单上其实只有你一个人。）'));
+      var a1 = document.createElement('div'); a1.className = 'r-title'; a1.textContent = '他发来一条消息';
+      var a2 = document.createElement('div'); a2.className = 'r-big'; a2.textContent = '「忠不忠诚，你自己心里清楚。」';
+      reveal.appendChild(a1); reveal.appendChild(a2);
       return;
     }
-    title.textContent = '通话已结束';
+
+    var score = Math.floor(loy);
+    repNum.style.color = '#d8e88a';
     meta.textContent = '通话时长 ' + fmtSec() + ' · 通话质量：较差';
-    reveal.innerHTML = '';
-    var t1 = document.createElement('div'); t1.className = 'r-title'; t1.textContent = '他最后没说完的那句话';
-    var t2 = document.createElement('div'); t2.className = 'r-big';
-    t2.textContent = '「……能不能先借我 5000 韩元打车费。」';
-    var t3 = document.createElement('div'); t3.style.marginTop = '8px';
-    t3.textContent = '（折合人民币约 27 块。你挂断了。）';
-    reveal.appendChild(t1); reveal.appendChild(t2); reveal.appendChild(t3);
+
+    if (kind === 'pass'){
+      title.textContent = '通话已结束';
+      repNum.textContent = '100%';
+      repRank.textContent = '评级：非常忠诚';
+      repBar.style.width = '100%';
+      repRow.appendChild(row('授予：一心会第 128 号会员'));
+      repRow.appendChild(row('评语：嗓子不错，就是口音有点重。'));
+      var b1 = document.createElement('div'); b1.className = 'r-title'; b1.textContent = '他最后没说完的那句话';
+      var b2 = document.createElement('div'); b2.className = 'r-big';
+      b2.textContent = '「……12 月 12 日早上六点，别迟到。忠诚。」';
+      var b3 = document.createElement('div'); b3.style.marginTop = '8px';
+      b3.textContent = '（你放下手机看了一眼日历：那天是周六。）';
+      reveal.appendChild(b1); reveal.appendChild(b2); reveal.appendChild(b3);
+      return;
+    }
+
+    title.textContent = '通话已结束';
+    repNum.textContent = score + '%';
+    repNum.style.color = '#ffd479';
+    repRank.textContent = score >= 60 ? '评级：勉强忠诚' : '评级：不够忠诚';
+    repBar.style.width = Math.max(2, score) + '%';
+    repRow.appendChild(row('未通过忠诚度测试'));
+    repRow.appendChild(row('备注：他挂电话的时候，叹了口气。'));
+    var c1 = document.createElement('div'); c1.className = 'r-title'; c1.textContent = '三秒后，你老板发来消息';
+    var c2 = document.createElement('div'); c2.className = 'r-big'; c2.textContent = '「明天早会你来讲一下。忠诚。」';
+    var c3 = document.createElement('div'); c3.style.marginTop = '8px';
+    c3.textContent = '（你看了一眼时间：23:47。）';
+    reveal.appendChild(c1); reveal.appendChild(c2); reveal.appendChild(c3);
   }
 
-  /* ---------- 拒绝 & 重拨 ---------- */
+  /* ---------- 拒绝 ---------- */
   function reject(){
     rejected++;
     stopRing();
@@ -598,13 +842,11 @@ body{
     later(function(){
       show('incoming');
       startRing();
-      toast('');
     }, 1800);
   }
 
   var toastEl = $('toast'), toastTimer = null;
   function toast(msg){
-    if (!msg){ toastEl.classList.remove('on'); return; }
     toastEl.textContent = msg;
     toastEl.classList.add('on');
     if (toastTimer) clearTimeout(toastTimer);
@@ -629,14 +871,15 @@ body{
   });
 
   function copyText(text){
+    var done = function(){ toast('链接已复制，去 QQ 粘贴给他'); };
     if (navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(function(){ toast('链接已复制，去 QQ 粘贴给他'); }, fallback);
+      navigator.clipboard.writeText(text).then(done, fallback);
     } else fallback();
     function fallback(){
       var ta = document.createElement('textarea');
       ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
       document.body.appendChild(ta); ta.select();
-      try { document.execCommand('copy'); toast('链接已复制，去 QQ 粘贴给他'); }
+      try { document.execCommand('copy'); done(); }
       catch(e){ toast('复制失败，请长按地址栏复制'); }
       document.body.removeChild(ta);
     }
@@ -649,8 +892,8 @@ body{
   $('btnCopySelf').addEventListener('click', function(){ copyText(location.href); });
 
   document.addEventListener('visibilitychange', function(){
-    if (document.hidden && ringing) stopRing();
-    else if (!document.hidden && views.incoming.classList.contains('active')) startRing();
+    if (document.hidden){ if (ringing) stopRing(); pressEnd(); }
+    else if (views.incoming.classList.contains('active')) startRing();
   });
 })();
 </script>
